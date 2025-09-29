@@ -30,7 +30,7 @@ try {
 //    const Data = await userModel.find({approved:true});
       const Data = await userModel.find();
   //  console.log(Data)
-   res.send({"hi" : Data})
+   res.send(Data)
 } catch (error) {
   res.status(404).send('data not found');
 }

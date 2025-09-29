@@ -6,8 +6,8 @@ const morgan = require('morgan');
 const routes= require('./routes/userRouter');
 
 
-// const cors= require('cors');
-// app.use(cors());
+const cors= require('cors');
+app.use(cors());
 require('dotenv').config();
 require('./db/connection');
 
