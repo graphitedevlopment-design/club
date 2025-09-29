@@ -3,8 +3,8 @@ const router = express.Router();
 router.use(express.json());
 router.use(express.urlencoded({extended:true}));
 
-// const eventModel = require('../model/eventData');
-const jwt= require('jsonwebtoken');
+const userModel = require('../models/userModel');
+// const jwt= require('jsonwebtoken');
 
 
 // function verifyAdmin(req,res,next){
@@ -25,11 +25,12 @@ const jwt= require('jsonwebtoken');
 /***************************route******************/
 
 
-router.get('/home/', async (req, res) => {
+router.get('/', async (req, res) => {
 try {
-   const Data = await eventModel.find({approved:true});
+//    const Data = await userModel.find({approved:true});
+      const Data = await userModel.find();
   //  console.log(Data)
-   res.send(Data)
+   res.send({"hi" : Data})
 } catch (error) {
   res.status(404).send('data not found');
 }

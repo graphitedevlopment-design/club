@@ -3,7 +3,7 @@ const express = require('express');
 const app = new express();
 const morgan = require('morgan');
 
-// const routes= require('./routes/router');
+const routes= require('./routes/userRouter');
 
 
 // const cors= require('cors');
@@ -12,7 +12,7 @@ require('dotenv').config();
 require('./db/connection');
 
 app.use(morgan('dev'));
-// app.use("/",routes);
+app.use("/home",routes);
 
 
 
