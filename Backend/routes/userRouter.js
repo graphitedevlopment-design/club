@@ -36,6 +36,18 @@ try {
 }
 });
 
-
+router.post('/addevent',async (req,res)=>{ 
+                   console.log(req.body);
+              try{
+                const item = req.body;
+                const userdata = new userModel({...item,userId:"Admin"});
+                await userdata.save();
+                res.status(200).send({message:'Added'});
+              } catch (error) {
+                console.log(error);
+                res.status(404).send({message:'add UNSuccessful'});
+              }
+    
+});
 
 module.exports = router;
