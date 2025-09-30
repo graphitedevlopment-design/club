@@ -40,7 +40,9 @@ router.post('/addevent',async (req,res)=>{
                    console.log(req.body);
               try{
                 const item = req.body;
-                const userdata = new userModel({...item,userId:"Admin"});
+                console.log(item);
+                
+                const userdata = new userModel({...item,userId:"unique id"});
                 await userdata.save();
                 res.status(200).send({message:'Added'});
               } catch (error) {
