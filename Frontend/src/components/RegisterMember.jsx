@@ -113,8 +113,8 @@ const RegisterMember = () => {
               </Select>
             </FormControl>
           </Grid>
-        <Grid>
-            <TextField item xs={12}
+        <Grid item xs={12} >
+            <TextField 
           id="filled-multiline-flexible"
           label="Address"
           name="address"
