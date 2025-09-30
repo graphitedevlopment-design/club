@@ -10,6 +10,7 @@ const RegisterMember = () => {
     mid: '',
     phone: '',
     role: '',
+    address:'',
   });
 
   // Handle input changes 
@@ -112,7 +113,18 @@ const RegisterMember = () => {
               </Select>
             </FormControl>
           </Grid>
-
+        <Grid>
+            <TextField item xs={12}
+          id="filled-multiline-flexible"
+          label="Address"
+          name="address"
+          value={formData.address}
+          onChange={handleChange}
+          required
+          multiline
+          maxRows={4}
+        />
+        </Grid>
           {/* Submit Button */} 
           <Grid item xs={12}  sx={{ mt: 2 }}>
             <Button variant="contained" fullWidth type="submit">
