@@ -1,47 +1,36 @@
-const mongoose = require('mongoose');
-const globalRoles = ['user', 'admin', 'superadmin'];
+import mongoose from "mongoose";
 
-const userSchema = mongoose.Schema(
+const clubSchema = new mongoose.Schema(
   {
-    user_id: String,
-    email: {
+    clubName: {
       type: String,
       required: true,
-      unique: true,
-      lowercase: true,
       trim: true,
     },
-    passwordHash: {
+    category: {
       type: String,
+      default: null,
+    },
+    description: {
+      type: String,
+      default: null,
+    },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: "User",
       required: true,
     },
-    globalRole: {
+    status: {
       type: String,
-      enum: globalRoles,
-      default: 'user',
+      enum: ["active", "inactive", "pending"],
+      default: "active",
     },
-    personalInfo: {
-      fname: { type: String, required: true },
-      lname: { type: String, required: true },
-      phone: Number,
-      address: String,
-      birthdate: Date,
-    },
-    addedby: { type: String, default: 'self' },
-    approved: { type: Boolean, default: true },
   },
   {
-    timestamps: true,
+    timestamps: { createdAt: true, updatedAt: true },
   }
 );
 
-// set user_id = _id not on update
-userSchema.pre('save', function (next) {
-  if (!this.user_id) {
-    this.user_id = this._id.toString(); 
-  }
-  next();
-});
+const Club = mongoose.model("Club", clubSchema);
 
-const userData = mongoose.model('User', userSchema); 
-module.exports = userData;
+export default Club;
