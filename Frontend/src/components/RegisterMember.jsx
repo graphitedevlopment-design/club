@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { TextField, Button, MenuItem, Select, InputLabel, FormControl, Grid, Box } from '@mui/material';
 import axios from 'axios';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 const RegisterMember = () => {
   const [formData, setFormData] = useState({
     fname: '',
     lname: '',
     email: '',
-    mid: '',
     phone: '',
-    role: '',
+    birth:'',
     address:'',
   });
 
@@ -71,19 +72,6 @@ const RegisterMember = () => {
             />
           </Grid>
 
-          {/*membership Id */}
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              label="Membership Id"
-              name="mid"
-              type="text"
-              value={formData.mid}
-              onChange={handleChange}
-              required
-            />
-          </Grid>
-
           {/* Phone */}
           <Grid item xs={12}>
             <TextField
@@ -97,7 +85,7 @@ const RegisterMember = () => {
           </Grid>
 
           {/* Role  */}
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <FormControl fullWidth required sx={{ minWidth: 150 }}>
               <InputLabel id="role-label">Role</InputLabel>
               <Select
@@ -112,7 +100,9 @@ const RegisterMember = () => {
                 <MenuItem value="manager">Manager</MenuItem>
               </Select>
             </FormControl>
-          </Grid>
+          </Grid> */}
+          
+          {/*address*/}
         <Grid item xs={12} >
             <TextField 
           id="filled-multiline-flexible"
@@ -125,6 +115,23 @@ const RegisterMember = () => {
           maxRows={4}
         />
         </Grid>
+
+         {/* DOB */}
+         
+          <Grid item xs={12}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="Date of Birth"
+                value={formData.birth}
+                onChange={(newDate) => {
+                  setFormData((prev) => ({ ...prev, birth: newDate }));
+                }}
+                renderInput={(params) => <TextField {...params} name="birth" />}
+              />
+
+          </LocalizationProvider>
+          </Grid>
+
           {/* Submit Button */} 
           <Grid item xs={12}  sx={{ mt: 2 }}>
             <Button variant="contained" fullWidth type="submit">
