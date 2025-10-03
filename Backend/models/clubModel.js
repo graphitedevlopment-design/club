@@ -20,6 +20,36 @@ const clubSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    adminId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    logo: {
+      type: String, 
+      default: null,
+    },
+    rules: {
+      type: [String],
+      default: [],
+    },
+    // roles: [
+    //   {
+    //     roleName: {
+    //       type: String, // e.g. "President", "Vice President"
+    //       required: true,
+    //     },
+    //     userId: {
+    //       type: mongoose.Schema.Types.ObjectId,
+    //       ref: "User",
+    //       default: null, // user holding the role
+    //     },
+    //     privileges: {
+    //       type: [String], // e.g. ["approveMembers", "manageEvents"]
+    //       default: [],
+    //     },
+    //   },
+    // ],
     status: {
       type: String,
       enum: ["active", "inactive", "pending"],

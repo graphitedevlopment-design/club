@@ -24,25 +24,45 @@ const clubMembershipSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["active", "inactive", "pending"],
-      default: "active",
+      default: "pending", // until approval
     },
     role: {
       type: String,
       enum: ["member", "admin", "moderator"],
       default: "member",
     },
+    isApproved: {
+      type: Boolean,
+      default: false,
+    },
+    isCommitteeApproved: {
+      type: Boolean,
+      default: false,
+    },
+    approvedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // who approved
+      default: null,
+    },
+    approvalDate: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true }
 );
 
-// generate membershipId 
+// Generate membershipId if not present
 clubMembershipSchema.pre("save", async function (next) {
   if (!this.membershipId) {
-    this.membershipId = "M" + Date.now().toString(36) + Math.floor(Math.random() * 1000);
+    this.membershipId =
+      "M" +
+      Date.now().toString(36) +
+      Math.floor(Math.random() * 1000);
   }
   next();
 });
 
-const ClubMembership = mongoose.model("ClubMembership", clubMembershipSchema);
+const ClubMembership = mongoose.model( "ClubMembership",clubMembershipSchema);
 
 export default ClubMembership;

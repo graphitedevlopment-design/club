@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const globalRoles = ['user', 'admin', 'superadmin'];
+const globalRoles = ['user' ,'superadmin'];
 
 const userSchema = mongoose.Schema(
   {
@@ -29,6 +29,7 @@ const userSchema = mongoose.Schema(
     },
     addedby: { type: String, default: 'self' },
     approved: { type: Boolean, default: true },
+    status: { type: String, enum: ['active' , 'suspended' , 'inactive'], default: "active", },
   },
   {
     timestamps: true,
