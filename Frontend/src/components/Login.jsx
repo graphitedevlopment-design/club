@@ -1,34 +1,10 @@
 import React, { useState } from 'react';
 import {
-  Box,
-  Container,
-  Paper,
-  TextField,
-  Button,
-  Typography,
-  Grid,
-  Card,
-  CardMedia,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  IconButton,
-  InputAdornment,
-  Alert,
-  useTheme,
-  useMediaQuery
+  Box, Container, Paper, TextField, Button, Typography, Grid, Card, CardMedia, Dialog, DialogTitle,
+  DialogContent, DialogActions, IconButton, InputAdornment, Alert, useTheme, useMediaQuery
 } from '@mui/material';
 import {
-  Visibility,
-  VisibilityOff,
-  Close,
-  Person,
-  Email,
-  Lock,
-  Phone,
-  Home,
-  CalendarToday
+  Visibility, VisibilityOff, Close, Person, Email, Lock, Phone, Home, CalendarToday
 } from '@mui/icons-material';
 
 const Login = () => {
@@ -102,7 +78,7 @@ const Login = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    // Add your registration logic here
+    // Add  registration Axios post
     console.log('Register attempt:', registerData);
     
     // Validation
@@ -130,17 +106,17 @@ const Login = () => {
       return;
     }
 
-    // Date of birth validation (must be at least 13 years old)
+    // Date of birth validation (at least 18 years old)
     const dob = new Date(registerData.dateOfBirth);
     const today = new Date();
-    const minAgeDate = new Date(today.getFullYear() - 13, today.getMonth(), today.getDate());
+    const minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
     
     if (dob > minAgeDate) {
-      setRegisterError('You must be at least 13 years old to register');
+      setRegisterError('You must be at least 18 years old to register');
       return;
     }
 
-    // Successful registration logic would go here
+    // Successful registration logic 
     alert('Registration successful!');
     setRegisterDialogOpen(false);
     // Reset form
@@ -197,7 +173,7 @@ const Login = () => {
         <Grid container spacing={4} alignItems="center" justifyContent="center">
           {/* Poster Section */}
           {!isMobile && (
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Card
                 sx={{
                   borderRadius: 3,
@@ -212,7 +188,7 @@ const Login = () => {
                 <CardMedia
                   component="img"
                   height="600"
-                  image="meeting.jpg"
+                  image="iocenters-2673327.jpg"
                   alt="Club Management System"
                   sx={{
                     objectFit: 'cover',
@@ -224,7 +200,7 @@ const Login = () => {
           )}
 
           {/* Login Form Section */}
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Paper
               elevation={24}
               sx={{
@@ -276,6 +252,7 @@ const Login = () => {
                   onChange={handleLoginChange('email')}
                   margin="normal"
                   required
+                  autoComplete="email"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -294,6 +271,7 @@ const Login = () => {
                   onChange={handleLoginChange('password')}
                   margin="normal"
                   required
+                  autoComplete="current-password"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -397,7 +375,7 @@ const Login = () => {
 
           <Box component="form" onSubmit={handleRegister}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <TextField
                   fullWidth
                   label="First Name"
@@ -405,6 +383,7 @@ const Login = () => {
                   onChange={handleRegisterChange('firstName')}
                   margin="normal"
                   required
+                  autoComplete="given-name"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -414,7 +393,7 @@ const Login = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <TextField
                   fullWidth
                   label="Last Name"
@@ -422,6 +401,7 @@ const Login = () => {
                   onChange={handleRegisterChange('lastName')}
                   margin="normal"
                   required
+                  autoComplete="family-name"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -441,6 +421,7 @@ const Login = () => {
               onChange={handleRegisterChange('email')}
               margin="normal"
               required
+              autoComplete="email"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -459,6 +440,7 @@ const Login = () => {
               margin="normal"
               required
               placeholder="9876543210"
+              autoComplete="tel"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -466,7 +448,7 @@ const Login = () => {
                   </InputAdornment>
                 ),
               }}
-              helperText="Enter your phone number  "
+              helperText="Enter your phone number"
             />
 
             <TextField
@@ -477,6 +459,7 @@ const Login = () => {
               onChange={handleRegisterChange('dateOfBirth')}
               margin="normal"
               required
+              autoComplete="bday"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -487,7 +470,7 @@ const Login = () => {
               InputLabelProps={{
                 shrink: true,
               }}
-              helperText="You must be at least 13 years old"
+              helperText="You must be at least 18 years old"
             />
 
             <TextField
@@ -500,6 +483,7 @@ const Login = () => {
               multiline
               rows={3}
               placeholder="Enter your full address"
+              autoComplete="street-address"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -518,6 +502,7 @@ const Login = () => {
               onChange={handleRegisterChange('password')}
               margin="normal"
               required
+              autoComplete="new-password"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -546,6 +531,7 @@ const Login = () => {
               onChange={handleRegisterChange('confirmPassword')}
               margin="normal"
               required
+              autoComplete="new-password"
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
