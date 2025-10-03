@@ -1,4 +1,5 @@
 
+import ClubRegistration from './adminComponents/ClubRegistration';
 import './App.css'
 import Clubs from './components/Clubs';
 
@@ -10,7 +11,8 @@ function App() {
     <>
       {/* <Home/>
       <Clubs/> */}
-      <Login/>
+      {/* <Login/> */}
+      <ClubRegistration/>
     </>
   )
 }

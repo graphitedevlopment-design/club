@@ -23,7 +23,7 @@ const clubSchema = new mongoose.Schema(
     adminId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
+      default: null,
     },
     logo: {
       type: String, 
