@@ -25,7 +25,10 @@ import {
   Close,
   Person,
   Email,
-  Lock
+  Lock,
+  Phone,
+  Home,
+  CalendarToday
 } from '@mui/icons-material';
 
 const Login = () => {
@@ -44,6 +47,9 @@ const Login = () => {
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
+    address: '',
+    dateOfBirth: '',
     password: '',
     confirmPassword: '',
     showPassword: false,
@@ -101,6 +107,7 @@ const Login = () => {
     
     // Validation
     if (!registerData.firstName || !registerData.lastName || !registerData.email || 
+        !registerData.phone || !registerData.address || !registerData.dateOfBirth ||
         !registerData.password || !registerData.confirmPassword) {
       setRegisterError('Please fill in all fields');
       return;
@@ -116,6 +123,23 @@ const Login = () => {
       return;
     }
 
+    // Phone number validation
+    const phoneRegex = /^\+?[\d\s-()]{10,}$/;
+    if (!phoneRegex.test(registerData.phone)) {
+      setRegisterError('Please enter a valid phone number');
+      return;
+    }
+
+    // Date of birth validation (must be at least 13 years old)
+    const dob = new Date(registerData.dateOfBirth);
+    const today = new Date();
+    const minAgeDate = new Date(today.getFullYear() - 13, today.getMonth(), today.getDate());
+    
+    if (dob > minAgeDate) {
+      setRegisterError('You must be at least 13 years old to register');
+      return;
+    }
+
     // Successful registration logic would go here
     alert('Registration successful!');
     setRegisterDialogOpen(false);
@@ -124,6 +148,9 @@ const Login = () => {
       firstName: '',
       lastName: '',
       email: '',
+      phone: '',
+      address: '',
+      dateOfBirth: '',
       password: '',
       confirmPassword: '',
       showPassword: false,
@@ -145,6 +172,9 @@ const Login = () => {
       firstName: '',
       lastName: '',
       email: '',
+      phone: '',
+      address: '',
+      dateOfBirth: '',
       password: '',
       confirmPassword: '',
       showPassword: false,
@@ -182,7 +212,7 @@ const Login = () => {
                 <CardMedia
                   component="img"
                   height="600"
-                  image="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80"
+                  image="meeting.jpg"
                   alt="Club Management System"
                   sx={{
                     objectFit: 'cover',
@@ -224,7 +254,7 @@ const Login = () => {
                     mb: 1
                   }}
                 >
-                  Club Manager Pro
+                  Club Manager
                 </Typography>
                 <Typography variant="body1" color="text.secondary">
                   Welcome back! Please sign in to your account.
@@ -342,7 +372,8 @@ const Login = () => {
         fullWidth
         PaperProps={{
           sx: {
-            borderRadius: 3
+            borderRadius: 3,
+            maxHeight: '90vh'
           }
         }}
       >
@@ -421,6 +452,66 @@ const Login = () => {
 
             <TextField
               fullWidth
+              label="Phone Number"
+              type="tel"
+              value={registerData.phone}
+              onChange={handleRegisterChange('phone')}
+              margin="normal"
+              required
+              placeholder="9876543210"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Phone color="action" />
+                  </InputAdornment>
+                ),
+              }}
+              helperText="Enter your phone number  "
+            />
+
+            <TextField
+              fullWidth
+              label="Date of Birth"
+              type="date"
+              value={registerData.dateOfBirth}
+              onChange={handleRegisterChange('dateOfBirth')}
+              margin="normal"
+              required
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <CalendarToday color="action" />
+                  </InputAdornment>
+                ),
+              }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              helperText="You must be at least 13 years old"
+            />
+
+            <TextField
+              fullWidth
+              label="Address"
+              value={registerData.address}
+              onChange={handleRegisterChange('address')}
+              margin="normal"
+              required
+              multiline
+              rows={3}
+              placeholder="Enter your full address"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Home color="action" />
+                  </InputAdornment>
+                ),
+              }}
+              helperText="Please provide your complete address"
+            />
+
+            <TextField
+              fullWidth
               label="Password"
               type={registerData.showPassword ? 'text' : 'password'}
               value={registerData.password}
@@ -444,6 +535,7 @@ const Login = () => {
                   </InputAdornment>
                 ),
               }}
+              helperText="Password must be at least 6 characters long"
             />
 
             <TextField
