@@ -20,6 +20,7 @@ const userSchema = mongoose.Schema(
       enum: globalRoles,
       default: 'user',
     },
+    clubs: [],
     personalInfo: {
       fname: { type: String, required: true },
       lname: { type: String, required: true },
